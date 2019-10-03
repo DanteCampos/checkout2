@@ -8,11 +8,13 @@ import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+//Essa classe descreve o Checkout
 public class Checkout {
     private int precoTotal;
     private int descontoTotal;
     private HashMap<Produto, Integer> produtoMap = new HashMap<Produto, Integer>();
-
+    
+    //Esse é o construtor da classe
     public Checkout() {
         try {
             produtoMap.put(OperacoesBD.obterProdutoPeloNome("A"),0);
@@ -24,7 +26,7 @@ public class Checkout {
         }
 
     }
-
+    
     public void add(String produto) throws SQLException {
         AtomicReference<Produto> p = new AtomicReference<>();
         produtoMap.forEach((prod,key) ->{
@@ -71,7 +73,8 @@ public class Checkout {
         }));
         precoTotal = precoAnterior.get() - descontoTotal;
     }
-
+    
+    //Esse método retorna o melhor desconto possível de acordo com o produto, sua quantidade e as promoções existentes
     private int obterMelhorDesconto(ArrayList<TipoPromocao> promocoes, Produto produto, int quantidade){
         int desconto = 0;
         int multiplicador = 1;
